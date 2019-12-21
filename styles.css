@@ -1,6 +1,26 @@
+/* elements */
+
 body {
     background-color: black;
 }
+
+/* classes */
+
+.button {
+    background-color: black;
+    border: 1px yellow solid;
+    color: yellow;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.button:hover {
+    background-color: yellow;
+    color: black;
+}
+
+/* IDs */
 
 #myCanvas {
     border: 1px;
