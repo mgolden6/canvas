@@ -1,0 +1,13 @@
+body {
+    background-color: black;
+}
+
+#myCanvas {
+    border: 1px;
+    border-color: yellow;
+    border-style: solid;
+    display: block;
+    height: 400px;
+    width: 400px;
+    margin: auto;
+}
