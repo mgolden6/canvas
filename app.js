@@ -8,10 +8,7 @@ function startGame () {
     // f1.0.4_Create_a_Drawing_Object
     let ctx = canvas.getContext("2d");
 
-    // f1.0.5_Draw_on_the_Canvas
-    ctx.fillStyle = "#FF0000";
-    ctx.fillRect(0, 0, 400, 400);
-
-    // test with log
-    return("getting somewhere");
+    // f2.0.1_create_character
+    ctx.fillStyle = "#FFFF00";
+    ctx.fillRect(10, 10, 10, 10);
 }
