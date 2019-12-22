@@ -4,30 +4,10 @@ body {
     background-color: black;
 }
 
-/* classes */
-
-.button {
-    background-color: black;
-    border: 1px yellow solid;
-    color: yellow;
+canvas {
+    border: 1px lime solid;
     display: block;
     margin: auto;
-    margin-top: 10px;
-}
-
-.button:hover {
-    background-color: yellow;
-    color: black;
-}
-
-/* IDs */
-
-#myCanvas {
-    border: 1px;
-    border-color: yellow;
-    border-style: solid;
-    display: block;
-    height: 400px;
     width: 400px;
-    margin: auto;
+    height: 400px;
 }
