@@ -73,8 +73,10 @@ function component(x, y, width, height, color) {
         let topApple = apple.y;
         let rigthApple = apple.x + apple.width;
         let bottomApple = apple.y + apple.height;
+        
+        // ! fix
         if (this.x >= leftApple && this.x <= rigthApple && this.y >= topApple && this.y <= bottomApple) {
-            alert("hit");
+            alert("hit, but need to fix");
         }
     };
 }
