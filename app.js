@@ -1,17 +1,106 @@
 //jshint esversion: 6
 
+let apple;
+let snake;
+
 // start game
-function startGame () {
-    // f1.0.3_Find_the_Canvas_Element
-    let canvas = document.getElementById("myCanvas");
+function startGame() {
+    gameArea.start();
+    apple = new component(40, 40, 10, 10, "red");
+    snake = new component(20, 20, 10, 10, "lime");
+}
 
-    // f1.0.4_Create_a_Drawing_Object
-    let ctx = canvas.getContext("2d");
+let gameArea = {
+    canvas: document.createElement("canvas"),
+    start: function () {
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.frameNo = 0;
+        this.interval = setInterval(refresh, 20);
+        window.addEventListener("keydown", function (e) {
+            e.preventDefault();
+            gameArea.keys = (gameArea.keys || []);
+            gameArea.keys[e.keyCode] = (e.type == "keydown");
+        });
+        window.addEventListener("keyup", function (e) {
+            gameArea.keys[e.keyCode] = (e.type == "keydown");
+        });
+    },
+    stop: function () {
+        clearInterval(this.interval);
+    },
+    clear: function () {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+};
 
-    // f1.0.5_Draw_on_the_Canvas
-    ctx.fillStyle = "#FF0000";
-    ctx.fillRect(0, 0, 400, 400);
+// create components with a common framework
+function component(x, y, width, height, color) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;
+    this.update = function () {
+        ctx = gameArea.context;
+        ctx.fillStyle = color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    };
+    this.newPos = function () {
+        this.x += this.speedX;
+        this.y -= this.speedY;
+        this.hitBorder();
+        this.hitApple();
+    };
+    this.hitBorder = function () {
+        let leftBorder = 0;
+        let topBorder = 0;
+        let rightBorder = gameArea.canvas.width - this.width;
+        let bottomBorder = gameArea.canvas.height - this.height;
+        if (this.x <= leftBorder) {
+            this.x = leftBorder;
+        } if (this.y <= topBorder) {
+            this.y = topBorder;
+        } if (this.x >= rightBorder) {
+            this.x = rightBorder;
+        } if (this.y >= bottomBorder) {
+            this.y = bottomBorder;
+        }
+    };
+    this.hitApple = function () {
+        let leftApple = apple.x;
+        let topApple = apple.y;
+        let rigthApple = apple.x + apple.width;
+        let bottomApple = apple.y + apple.height;
+        
+        // ! fix
+        if (this.x >= leftApple && this.x <= rigthApple && this.y >= topApple && this.y <= bottomApple) {
+            alert("hit, but need to fix");
+        }
+    };
+}
 
-    // test with log
-    return("getting somewhere");
+// create refresh
+function refresh() {
+    gameArea.clear();
+    if (gameArea.keys && gameArea.keys[37]) {
+        snake.speedX = -1;
+        snake.speedY = 0;
+    }
+    if (gameArea.keys && gameArea.keys[38]) {
+        snake.speedY = 1;
+        snake.speedX = 0;
+    }
+    if (gameArea.keys && gameArea.keys[39]) {
+        snake.speedX = 1;
+        snake.speedY = 0;
+    }
+    if (gameArea.keys && gameArea.keys[40]) {
+        snake.speedY = -1;
+        snake.speedX = 0;
+    }
+    snake.newPos();
+    snake.update();
+    apple.update();
 }
