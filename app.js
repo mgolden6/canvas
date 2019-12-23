@@ -2,12 +2,14 @@
 
 let apple;
 let snake;
+let score;
 
 // start game
 function startGame() {
     gameArea.start();
     apple = new component(40, 40, 5, 5, "red");
     snake = new component(20, 20, 10, 10, "lime");
+    score = new component(0, 0, 30, 10, "white", "text");
 }
 
 let gameArea = {
@@ -35,7 +37,7 @@ let gameArea = {
 };
 
 // create components with a common framework
-function component(x, y, width, height, color) {
+function component(x, y, width, height, color, type) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -44,8 +46,14 @@ function component(x, y, width, height, color) {
     this.speedY = 0;
     this.update = function () {
         ctx = gameArea.context;
-        ctx.fillStyle = color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        if (type == "text") {
+            ctx.font = this.width + " " + this.height;
+            ctx.fillStyle = color;
+            ctx.fillText(this.text, this.x, this.y);
+        } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
     };
     this.newPos = function () {
         this.x += this.speedX;
@@ -108,4 +116,5 @@ function refresh() {
     snake.hitBorder();
     snake.hitApple();
     apple.update();
+    score.update();
 }
