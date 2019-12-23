@@ -6,7 +6,7 @@ let snake;
 // start game
 function startGame() {
     gameArea.start();
-    apple = new component(40, 40, 10, 10, "red");
+    apple = new component(40, 40, 5, 5, "red");
     snake = new component(20, 20, 10, 10, "lime");
 }
 
@@ -71,13 +71,20 @@ function component(x, y, width, height, color) {
     this.hitApple = function () {
         let leftApple = apple.x;
         let topApple = apple.y;
-        let rigthApple = apple.x + apple.width;
+        let rightApple = apple.x + apple.width;
         let bottomApple = apple.y + apple.height;
         
-        // ! fix
-        if (this.x >= leftApple && this.x <= rigthApple && this.y >= topApple && this.y <= bottomApple) {
-            alert("hit, but need to fix");
+        if (this.x > rightApple || (this.x + this.width) < leftApple || 
+            this.y > bottomApple || (this.y + this.height) < topApple) {
+            return(false);
+        } else {
+            // * move apple
+            // * update score
+            alert("hit apple");
         }
+    };
+    this.moveApple = function () {
+        
     };
 }
 
