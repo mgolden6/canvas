@@ -50,8 +50,6 @@ function component(x, y, width, height, color) {
     this.newPos = function () {
         this.x += this.speedX;
         this.y -= this.speedY;
-        this.hitBorder();
-        this.hitApple();
     };
     this.hitBorder = function () {
         let leftBorder = 0;
@@ -73,18 +71,16 @@ function component(x, y, width, height, color) {
         let topApple = apple.y;
         let rightApple = apple.x + apple.width;
         let bottomApple = apple.y + apple.height;
-        
-        if (this.x > rightApple || (this.x + this.width) < leftApple || 
+        if (this.x > rightApple || (this.x + this.width) < leftApple ||
             this.y > bottomApple || (this.y + this.height) < topApple) {
-            return(false);
+            return (false);
         } else {
             // * move apple
+            apple.x = 60;
+            apple.y = 60;
+            apple.update();
             // * update score
-            alert("hit apple");
         }
-    };
-    this.moveApple = function () {
-        
     };
 }
 
@@ -109,5 +105,7 @@ function refresh() {
     }
     snake.newPos();
     snake.update();
+    snake.hitBorder();
+    snake.hitApple();
     apple.update();
 }
