@@ -2,14 +2,15 @@
 
 let apple;
 let snake;
-let score;
+let scoreBoard;
+let score = 0;
 
 // start game
 function startGame() {
     gameArea.start();
     apple = new component(40, 40, 5, 5, "red");
     snake = new component(20, 20, 10, 10, "lime");
-    score = new component(0, 0, 30, 10, "white", "text");
+    scoreBoard = new component(10, 10, 10, 10, "white", "text");
 }
 
 let gameArea = {
@@ -17,7 +18,6 @@ let gameArea = {
     start: function () {
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-        this.frameNo = 0;
         this.interval = setInterval(refresh, 20);
         window.addEventListener("keydown", function (e) {
             e.preventDefault();
@@ -49,6 +49,7 @@ function component(x, y, width, height, color, type) {
         if (type == "text") {
             ctx.font = this.width + " " + this.height;
             ctx.fillStyle = color;
+            this.text = "SCORE: " + score;
             ctx.fillText(this.text, this.x, this.y);
         } else {
             ctx.fillStyle = color;
@@ -83,11 +84,12 @@ function component(x, y, width, height, color, type) {
             this.y > bottomApple || (this.y + this.height) < topApple) {
             return (false);
         } else {
+            // update score
+            score++;
+            apple.update();
             // move apple to random location within canvas
             apple.x = Math.floor(Math.random() * (gameArea.canvas.width - apple.width));
             apple.y = Math.floor(Math.random() * (gameArea.canvas.height - apple.height));
-            apple.update();
-            // * update score
         }
     };
 }
@@ -116,5 +118,5 @@ function refresh() {
     snake.hitBorder();
     snake.hitApple();
     apple.update();
-    score.update();
+    scoreBoard.update();
 }
