@@ -75,9 +75,9 @@ function component(x, y, width, height, color) {
             this.y > bottomApple || (this.y + this.height) < topApple) {
             return (false);
         } else {
-            // * move apple
-            apple.x = 60;
-            apple.y = 60;
+            // move apple to random location within canvas
+            apple.x = Math.floor(Math.random() * (gameArea.canvas.width - apple.width));
+            apple.y = Math.floor(Math.random() * (gameArea.canvas.height - apple.height));
             apple.update();
             // * update score
         }
