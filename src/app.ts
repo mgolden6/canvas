@@ -5,15 +5,6 @@ let score: number = 0;
 let scoreBoard: { update: () => void; };
 let snake: { x: number; y: number; width: number; height: number; color: string; speedX: number; speedY: number; newPos: () => void; update: () => void; hitBorder: () => void; hitApple: () => void; };
 
-// interface Component {
-//     x: number,
-//     y: number,
-//     width: number,
-//     height: number,
-//     color: string,
-//     type?: string
-// };
-
 // start game
 let startGame = () => {
     gameArea.start();
