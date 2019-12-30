@@ -1,17 +1,17 @@
-//jshint esversion: 6
-var apple;
-var score = 0;
-var scoreBoard;
-var snake;
+// jshint esversion: 6
+let apple;
+let score = 0;
+let scoreBoard;
+let snake;
 // start game
-var startGame = function () {
+let startGame = () => {
     gameArea.start();
     apple = new component(40, 40, 5, 5, "red");
     snake = new component(20, 20, 10, 10, "lime");
     scoreBoard = new component(10, 10, 10, 10, "white", "text");
 };
 // create & control the game area
-var gameArea = {
+let gameArea = {
     canvas: document.createElement("canvas"),
     context: undefined,
     keys: undefined,
@@ -19,12 +19,12 @@ var gameArea = {
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(refresh, 20);
-        window.addEventListener("keydown", function (e) {
+        window.addEventListener("keydown", (e) => {
             e.preventDefault();
             gameArea.keys = (gameArea.keys || []);
             gameArea.keys[e.keyCode] = (e.type == "keydown");
         });
-        window.addEventListener("keyup", function (e) {
+        window.addEventListener("keyup", (e) => {
             gameArea.keys[e.keyCode] = (e.type == "keydown");
         });
     },
@@ -44,7 +44,7 @@ function component(x, y, width, height, color, type) {
     this.speedX = 0;
     this.speedY = 0;
     this.update = function () {
-        var ctx = gameArea.context;
+        let ctx = gameArea.context;
         if (type == "text") {
             ctx.font = this.width + " " + this.height;
             ctx.fillStyle = color;
@@ -61,10 +61,10 @@ function component(x, y, width, height, color, type) {
         this.y -= this.speedY;
     };
     this.hitBorder = function () {
-        var leftBorder = 0;
-        var topBorder = 0;
-        var rightBorder = gameArea.canvas.width - this.width;
-        var bottomBorder = gameArea.canvas.height - this.height;
+        let leftBorder = 0;
+        let topBorder = 0;
+        let rightBorder = gameArea.canvas.width - this.width;
+        let bottomBorder = gameArea.canvas.height - this.height;
         if (this.x <= leftBorder) {
             this.x = leftBorder;
         }
@@ -79,10 +79,10 @@ function component(x, y, width, height, color, type) {
         }
     };
     this.hitApple = function () {
-        var leftApple = apple.x;
-        var topApple = apple.y;
-        var rightApple = apple.x + apple.width;
-        var bottomApple = apple.y + apple.height;
+        let leftApple = apple.x;
+        let topApple = apple.y;
+        let rightApple = apple.x + apple.width;
+        let bottomApple = apple.y + apple.height;
         if (this.x > rightApple || (this.x + this.width) < leftApple ||
             this.y > bottomApple || (this.y + this.height) < topApple) {
             return (false);
@@ -98,7 +98,7 @@ function component(x, y, width, height, color, type) {
     };
 }
 // create refresh
-var refresh = function () {
+let refresh = () => {
     gameArea.clear();
     if (gameArea.keys && gameArea.keys[37]) {
         snake.speedX = -2;

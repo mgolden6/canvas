@@ -1,4 +1,4 @@
-//jshint esversion: 6
+// jshint esversion: 6
 
 let apple: { x: number; y: number; width: number; height: number; color: string; update: () => void; };
 let score: number = 0;
@@ -40,7 +40,7 @@ let gameArea = {
 };
 
 // create components with a common framework
-function component( x: number, y: number, width: number, height: number, color: string, type?: string) {
+function component(x: number, y: number, width: number, height: number, color: string, type?: string) {
     this.x = x;
     this.y = y;
     this.width = width;
